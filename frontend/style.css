@@ -1,0 +1,125 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Page layout */
+  body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Container */
+  .container {
+    background: #ffffff;
+    width: 400px;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  /* Heading */
+  h1 {
+    color: #4f46e5;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+  
+  /* Input area */
+  input {
+    width: 70%;
+    padding: 0.6rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s;
+  }
+  
+  input:focus {
+    border-color: #4f46e5;
+  }
+  
+  /* Add button */
+  button {
+    padding: 0.6rem 1rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  button:hover {
+    background-color: #3730a3;
+  }
+  
+  /* To-Do list */
+  ul {
+    list-style: none;
+    margin-top: 1.5rem;
+    text-align: left;
+  }
+  
+  li {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  
+  li:hover {
+    transform: translateY(-2px);
+    background: #f3f4f6;
+  }
+  
+  /* Task text */
+  li span {
+    flex: 1;
+    color: #374151;
+    font-weight: 500;
+  }
+  
+  /* Completed task */
+  li.completed span {
+    text-decoration: line-through;
+    color: #9ca3af;
+  }
+  
+  /* Buttons inside list */
+  li button {
+    background: none;
+    color: #4f46e5;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    transition: color 0.2s;
+  }
+  
+  li button:hover {
+    color: #9333ea;
+  }
+  
+  /* Empty list message */
+  .empty {
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 1rem;
+  }
+  
