@@ -60,7 +60,7 @@ jobs:
     steps:
       - name: Build and push images
         run: |
-          docker compose build
+          docker compose -f docker-compose.yml build
           docker tag backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
           docker tag frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
