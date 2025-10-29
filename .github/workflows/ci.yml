@@ -24,7 +24,6 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -65,10 +64,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker images
+      - name: Build and push images
         run: |
-          docker compose -f docker-compose.yml build
-          docker tag backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
-          docker tag frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
+            docker compose -f docker-compose.yml build
+            docker tag todo_backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
+            docker tag todo_frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
+            docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
+            docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
