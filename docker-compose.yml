@@ -30,6 +30,14 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+  frontend:
+    build: ./frontend
+    container_name: todo_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
 
 volumes:
   pgdata:
