@@ -14,6 +14,7 @@ services:
 
   backend:
     build: ./backend
+    image: todo_backend
     container_name: todo_backend
     restart: always
     environment:
@@ -32,6 +33,7 @@ services:
       - /app/node_modules
   frontend:
     build: ./frontend
+    image: todo_frontend
     container_name: todo_frontend
     restart: always
     depends_on:

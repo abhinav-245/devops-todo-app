@@ -11,31 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      backend:
-        build: ./backend
-        image: todo_backend
-        container_name: todo_backend
-        ports:
-          - "5000:5000"
-        environment:
-          - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/todoapp
-        depends_on:
-          - postgres
-      frontend:
-        build: ./frontend
-        image: todo_frontend
-        container_name: todo_frontend
-        ports:
-          - "3000:80"
       postgres:
         image: postgres:15
-        container_name: todo_postgres
-        environment:
+        env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: todoapp
-          ports:
-            - "5432:5432"
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -49,23 +38,18 @@ jobs:
         working-directory: backend
         run: npm install
 
-      - name: Run backend tests (optional)
-        working-directory: backend
-        run: |
-          npm test || echo "No tests defined"
-
       - name: Verify Docker installation
         run: |
           docker --version
           docker compose version
 
-      - name: Build Docker images (backend + frontend)
-        run: |
-          docker compose -f docker-compose.yml build
+      - name: Build Docker images
+        run: docker compose -f docker-compose.yml build
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -76,10 +60,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push images
+      - name: Build and push Docker images
         run: |
-            docker compose -f docker-compose.yml build
-            docker tag todo_backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
-            docker tag todo_frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
-            docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
-            docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
+          docker compose -f docker-compose.yml build
+          docker tag todo_backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
+          docker tag todo_frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
