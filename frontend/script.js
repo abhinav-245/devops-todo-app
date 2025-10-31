@@ -1,4 +1,4 @@
-const apiUrl = "http://15.207.100.160:5000/api/todos";
+const apiUrl = "http://todo_backend:5000/api/todos";
 
 async function getTodos() {
     const res = await fetch(apiUrl);
